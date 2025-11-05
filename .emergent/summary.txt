@@ -1,0 +1,91 @@
+<analysis>
+The AI engineer's work on UniNotes involved a comprehensive set of tasks, transitioning the application from a basic MVP. The trajectory details a meticulous, iterative problem-solving approach, especially evident in diagnosing and resolving complex Netlify deployment errors, which often manifested as varied JavaScript runtime issues. Key efforts included refactoring frontend state management (, ), ensuring environment variable consistency across local and deployment environments, and configuring Netlify redirects. Beyond critical bug fixes, significant features were added: an enhanced admin panel with user management, robust profanity filtering (backend and frontend notifications), session management with auto-logout, a redesigned login/register UI, and improved navigation (browser back button, collapsible replies, expandable categories). The engineer consistently addressed user feedback, identifying root causes even when symptoms changed, and systematically delivered features by making precise, targeted code modifications, predominantly within  and .
+</analysis>
+
+<product_requirements>
+The UniNotes application functions as a student forum for note-sharing and discussions. Initial features included rate limiting, a mobile-responsive UI, static footer pages, guest access for questions, basic category management, and a migration from MongoDB to MySQL/MariaDB. Subsequent requirements focused on extensive bug fixes (e.g., persistent delete functionality, authentication), implementing comprehensive university/faculty lists, supporting Turkish character search, adding file uploads and collapsible answers, and rebranding. A major feature was the development of an admin panel with user management (suspend, ban, warn, make admin, delete), intelligent search, and the ability for admins to delete any content. UI/UX improvements included backdrop-click closures for modals, improved category styling, and clickable category badges for filtering. Recently, the focus shifted to fixing Netlify deployment issues, adding a 50-minute inactivity auto-logout, making the login/register page professional, implementing a comprehensive profanity filter for content and usernames with frontend notifications, enabling collapsible replies and expandable categories on the homepage, adding YKS Öğrencisiyim registration, making the leaderboard globally accessible, and fixing notification system for new answers and mute durations.
+</product_requirements>
+
+<key_technical_concepts>
+-   **FastAPI**: Python backend framework for API endpoints.
+-   **React**: JavaScript library for dynamic user interfaces.
+-   **MySQL/MariaDB**: Relational database for persistent storage.
+-   ****: Asynchronous Python driver for MySQL.
+-   **Shadcn UI & Tailwind CSS**: Frontend styling and component library.
+-   **JWT Tokens**: Secure user authentication and authorization.
+-   **React Router**: Client-side routing for navigation.
+-   **Environment Variables**: Configuration management for URLs and secrets.
+-   **Regex**: For advanced text pattern matching, particularly profanity filtering.
+-   **LocalStorage**: Client-side storage for session management.
+</key_technical_concepts>
+
+<code_architecture>
+The application employs a standard full-stack architecture with a React frontend, a FastAPI backend, and a MySQL/MariaDB database.
+
+**Directory Structure:**
+
+
+-   :
+    -   **Importance**: The core of the FastAPI backend, handling API routes, database interactions, authentication, and business logic.
+    -   **Changes Made**:
+        -   Added comprehensive profanity filtering logic and a list of forbidden words and regex patterns, applied to , , , and  endpoints.
+        -   Modified  endpoint to validate usernames for profanity and to set university/faculty/department as YKS Öğrencisi if  is true.
+        -   Added  (for file uploads) and  (for serving files) endpoints.
+        -   Added temporary admin creation endpoints:  and  for testing.
+        -   Modified answer creation endpoint to send notifications to the question owner.
+        -   Updated  Pydantic model to include .
+-   :
+    -   **Importance**: The main React component, managing application state, routing, and all major UI components.
+    -   **Changes Made**:
+        -   **Netlify Debugging**: Updated  state initialization from  to  and added null/undefined checks to  usages. Fixed  access. Implemented a fallback  from . Fixed a Temporal Dead Zone error related to  variable hoisting.
+        -   **UI/UX Improvements**: Redesigned Login/Register page UI for a more professional look (spacing, gradients, error styling, clickable logo to homepage, Kullanıcı adınızı girin placeholder).
+        -   **Authentication**: Implemented 50-minute inactivity auto-logout with toast notifications and history replacement () after login to prevent returning to login page via browser back button. Added an auth guard to the Login component.
+        -   **Forms**: Added password confirmation for registration, with real-time matching feedback.
+        -   **Profanity Filter Integration**: Added client-side toast notifications for profanity detection errors during question/answer creation and registration.
+        -   **Dynamic Content**: Implemented collapsible replies on answer cards and expandable categories on the homepage (initially showing 6: Mühendislik, Tıp, YKS, KYK Yurtları, Dersler, Burslar).
+        -   **Localization**: Updated all date/time formatting to Turkish timezone ('Europe/Istanbul') and included hour/minute.
+        -   **YKS Student Feature**: Added an  checkbox to the registration form, conditionally hiding university/faculty/department fields.
+        -   **Global State**: Moved leaderboard state and fetch logic to the main App component to make it accessible across all pages.
+        -   **Typo Fix**: Corrected Bilgi Payla! to Bilgi Paylaş!.
+-   :
+    -   **Importance**: Stores frontend environment variables.
+    -   **Changes Made**: Updated  to  for the Railway backend connection.
+-   :
+    -   **Importance**: Main HTML file for the React application.
+    -   **Changes Made**: Changed site title to Üniversiteliler Soruyor. Removed Made with Emergent badge. Added favicon links and apple touch icon metadata.
+-   :
+    -   **Importance**: Netlify configuration for Single Page Application (SPA) routing.
+    -   **Changes Made**: Created with  rule to handle client-side routing.
+-   :
+    -   **Importance**: Web app manifest for Progressive Web App (PWA) features.
+    -   **Changes Made**: Created and configured for favicon and PWA metadata.
+-   , :
+    -   **Importance**: Site icon files.
+    -   **Changes Made**: New orange graduation cap logo files added.
+-   :
+    -   **Importance**: Lists Python dependencies.
+    -   **Changes Made**:  (regex) is a built-in module, so no specific external dependency added for the profanity filter.
+-   :
+    -   **Importance**: Defines the MySQL database structure.
+    -   **Changes Made**: No direct changes in the trajectory, but the description indicates it already supports , , etc.
+-   :
+    -   **Importance**: Netlify build and deployment configuration.
+    -   **Changes Made**:
+        -   Configured  and .
+        -   Set .
+        -   Added  to  for Netlify deployment.
+        -   Added  rule for SPA routing.
+</code_architecture>
+
+<pending_tasks>
+- The category styling issue (dark background on click) and the functionality to filter questions by category when clicking a category badge were mentioned as still problematic at the beginning of the trajectory, and no explicit action or confirmation of their fix was provided in the subsequent conversation.
+- The file upload functionality, while backend endpoints were added, still requires the user to deploy these changes to the Railway backend for it to be fully functional.
+</pending_tasks>
+
+<current_work>
+Immediately before this summary request, the AI engineer successfully addressed several core features and bug fixes. The most recent completed tasks involved making the leaderboard accessible from all pages, fixing the notification system to send alerts when an answer is received, and ensuring mute notifications include duration details. This involved refactoring the leaderboard state management to be global in  and enhancing the notification logic within  to include answer notifications. All these changes have been implemented and committed, and the expectation is that they will be active upon the next Netlify and Railway deployments. The system is considered stable with these recent additions, and no active debugging or immediate issues were reported at the very end of the trajectory.
+</current_work>
+
+<optional_next_step>
+None. The last set of tasks were successfully completed.
+</optional_next_step>

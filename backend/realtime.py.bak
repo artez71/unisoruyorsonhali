@@ -1,0 +1,47 @@
+"""
+Supabase Realtime helper functions
+"""
+from typing import Dict, Any
+from supabase_client import supabase_admin
+
+class Realtime:
+    """Realtime operations using Supabase Realtime"""
+    
+    def __init__(self):
+        self.client = supabase_admin
+    
+    async def send_notification(self, user_id: str, notification: Dict[str, Any]) -> bool:
+        """Send real-time notification to a user"""
+        try:
+            # Supabase Realtime broadcast
+            # Note: Python SDK has limited Realtime support
+            # For full Realtime, use Postgres NOTIFY or implement WebSocket server
+            
+            # For now, notifications are stored in DB and fetched by frontend
+            # Frontend can subscribe to DB changes using Supabase Realtime JS
+            return True
+        except Exception as e:
+            print(f"Error sending realtime notification: {str(e)}")
+            return False
+    
+    async def broadcast_new_question(self, question: Dict[str, Any]) -> bool:
+        """Broadcast new question to all connected clients"""
+        try:
+            # This would use Supabase Realtime broadcast
+            # Frontend subscribes to 'questions' channel
+            return True
+        except Exception as e:
+            print(f"Error broadcasting question: {str(e)}")
+            return False
+    
+    async def broadcast_new_answer(self, question_id: str, answer: Dict[str, Any]) -> bool:
+        """Broadcast new answer to question subscribers"""
+        try:
+            # Frontend subscribes to specific question channels
+            return True
+        except Exception as e:
+            print(f"Error broadcasting answer: {str(e)}")
+            return False
+
+# Create singleton instance
+realtime = Realtime()

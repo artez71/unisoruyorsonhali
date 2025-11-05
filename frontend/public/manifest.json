@@ -1,0 +1,20 @@
+{
+  "short_name": "Üniversiteliler Soruyor",
+  "name": "Üniversiteliler Soruyor - Öğrenci Q&A Platformu",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#f97316",
+  "background_color": "#ffffff"
+}
